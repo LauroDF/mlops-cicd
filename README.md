@@ -48,7 +48,7 @@ mlops-ci-cd/
 
 ### 1️⃣ Clonar o repositório
 ```bash
-git clone https://github.com/jaisonschmidt/mlops-automation-handson.git
+git clone https://github.com/LauroDF/mlops-cicd.git
 cd mlops-automation-handson
 ```
 
