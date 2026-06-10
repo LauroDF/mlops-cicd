@@ -7,16 +7,41 @@ on:
     branches: ["main"]
 
 jobs:
-  test:
+  mlops:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout code 
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Run tests
+
+      - name: Validar Dados
+        run: python src/validate_data.py
+
+      - name: Executar Testes
         run: pytest
+
+      - name: Treinar modelo
+        run: python src/train_model.py
+
+      - name: Avaliar modelo
+        run: python src/evaluate_model.py
+
+      - name: Publicar artefatos
+        uses: actions/upload-artifact@v4
+        with:
+          name: model-treinado
+          path:
+            model.joblib
+            metrics.json
