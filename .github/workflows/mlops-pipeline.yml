@@ -2,6 +2,7 @@ name: MLOps Pipeline
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 jobs:
   mlops:
     runs-on: ubuntu-latest
